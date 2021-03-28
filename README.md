@@ -1,8 +1,10 @@
-This Repositry includes React projects you can make while learning React!
+This Repositry includes React codes used by me while learning react & React projects you can make while learning React!
 
-#### most of the projects here are from freecodecamp tutorials ,i will also add projects made by me in mean time :)
+#### most of the projects here are from freecodecamp tutorials,you can watch their's video as well.
 
-#### setup
+#### setup to access Projects
+
+##### Go to Projects folder.
 
 ```bash
 cd <folder of project>
