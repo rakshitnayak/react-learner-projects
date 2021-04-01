@@ -15,9 +15,9 @@ class CartItem extends React.Component {
     // console.log("this", this.state);
 
     //set state  form 1
-    this.setState({
-      qty: this.state.qty + 1,
-    });
+    // this.setState({
+    //   qty: this.state.qty + 1,
+    // },()=>{});//second argument to remove asynchronous.
 
     //set state form 2
     this.setState((prevState) => {
@@ -26,6 +26,24 @@ class CartItem extends React.Component {
       };
     });
   };
+
+  decreaseQuantity = () => {
+    const { qty } = this.state;
+    if (qty === 0) {
+      return;
+    }
+    this.setState(
+      (prevState) => {
+        return {
+          qty: prevState.qty - 1,
+        };
+      },
+      () => {
+        console.log("this", this.state); //to remove asynchronous this is given by react as a second argument.
+      }
+    );
+  };
+
   render() {
     const { price, title, qty } = this.state;
     return (
@@ -50,6 +68,7 @@ class CartItem extends React.Component {
               src="https://www.flaticon.com/svg/vstatic/svg/992/992683.svg?token=exp=1617283100~hmac=cc688418d68b44040f2be60cfa2480a2"
               className="action-icons"
               alt="decrease"
+              onClick={this.decreaseQuantity}
             />
             <img
               src="https://www.flaticon.com/premium-icon/icons/svg/2907/2907762.svg"
