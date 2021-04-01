@@ -9,8 +9,11 @@ class CartItem extends React.Component {
       qty: 1,
       image: "",
     };
+    //  this.increaseQuantity = this.increaseQuantity.bind(this); we should use this while we use normal functions. not necssary while using arrow functions
   }
-
+  increaseQuantity = () => {
+    console.log("this", this.state);
+  };
   render() {
     const { price, title, qty } = this.state;
     return (
@@ -26,12 +29,13 @@ class CartItem extends React.Component {
             {/* buttons */}
 
             <img
-              src="https://www.flaticon.com/svg/vstatic/svg/748/748113.svg?token=exp=1617128491~hmac=56696eb4ce80985304054c7e520167b7"
+              src="https://www.flaticon.com/svg/vstatic/svg/992/992651.svg?token=exp=1617283132~hmac=47d39eeb199eeffddb4df93bbb6d1f0e"
               className="action-icons"
               alt="increase"
+              onClick={this.increaseQuantity}
             />
             <img
-              src="https://www.flaticon.com/svg/vstatic/svg/43/43625.svg?token=exp=1617128535~hmac=2f1a8068fa5fd991c75a4bdf71a15ad0"
+              src="https://www.flaticon.com/svg/vstatic/svg/992/992683.svg?token=exp=1617283100~hmac=cc688418d68b44040f2be60cfa2480a2"
               className="action-icons"
               alt="decrease"
             />
