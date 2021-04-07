@@ -10,7 +10,24 @@ class CartItem extends React.Component {
       image: "",
     };
     //  this.increaseQuantity = this.increaseQuantity.bind(this); we should use this while we use normal functions. not necssary while using arrow functions
+    // this.testing();
   }
+
+  // testing() {
+  //   const promise = new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve("done");
+  //     }, 5000);
+  //   });
+
+  //   promise.then(() => {
+  //     this.setState({ qty: this.state.qty + 10 });
+  //     this.setState({ qty: this.state.qty + 10 });
+  //     this.setState({ qty: this.state.qty + 10 });
+  //     console.log("state", this.state);
+  //   });
+  // }
+
   increaseQuantity = () => {
     // console.log("this", this.state);
 
