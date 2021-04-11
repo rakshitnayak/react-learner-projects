@@ -1,18 +1,8 @@
 import React from "react";
 
-
 class CartItem extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      price: "RS " + 999,
-      title: "Phone",
-      qty: 1,
-      image: "",
-    };
-    //  this.increaseQuantity = this.increaseQuantity.bind(this); we should use this while we use normal functions. not necssary while using arrow functions
-    // this.testing();
-  }
+  //  this.increaseQuantity = this.increaseQuantity.bind(this); we should use this while we use normal functions. not necssary while using arrow functions
+  // this.testing();
 
   // testing() {
   //   const promise = new Promise((resolve, reject) => {
@@ -63,7 +53,7 @@ class CartItem extends React.Component {
   };
 
   render() {
-    const { price, title, qty } = this.state;
+    const { price, title, qty } = this.props.product;
     return (
       <div className="cart-item">
         <div className="left-block">
