@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import React, { Component } from "react";
 
 import Cart from "./Cart";
@@ -11,31 +10,35 @@ class App extends Component {
     this.state = {
       products: [
         {
-          price: "RS " + 999,
+          price: 999,
           title: "Phone",
           qty: 1,
-          image: "",
+          image:
+            "https://images.unsplash.com/photo-1567581935884-3349723552ca?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80",
           id: 1,
         },
         {
-          price: "RS " + 761,
+          price: 761,
           title: "Watch",
           qty: 1,
-          image: "",
+          image:
+            "https://images.unsplash.com/photo-1512034705137-dc51c5ed36f4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=742&q=80",
           id: 2,
         },
         {
-          price: "RS " + 222,
+          price: 222,
           title: "Book",
           qty: 1,
-          image: "",
+          image:
+            "https://images.unsplash.com/photo-1589998059171-988d887df646?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=755&q=80",
           id: 3,
         },
         {
-          price: "RS " + 111,
-          title: "appy fiz",
+          price: 111,
+          title: "Football",
           qty: 1,
-          image: "",
+          image:
+            "https://images.unsplash.com/photo-1511886929837-354d827aae26?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
           id: 4,
         },
       ],
@@ -88,6 +91,17 @@ class App extends Component {
     return count;
   };
 
+  getCartTotal = () => {
+    const { products } = this.state;
+
+    let cartTotal = 0;
+
+    products.map((product) => {
+      cartTotal = cartTotal + product.qty * product.price;
+    });
+    return cartTotal;
+  };
+
   render() {
     const { products } = this.state;
     return (
@@ -99,6 +113,10 @@ class App extends Component {
           onDecreaseQuantity={this.handleDecreaseQuantity}
           onDeleteProduct={this.handleDeleteProduct}
         />
+        <div style={{ paddingLeft: 40, paddingBottom: 20, fontSize: 20 }}>
+          {" "}
+          Total Price: {this.getCartTotal()}
+        </div>
       </div>
     );
   }

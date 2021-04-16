@@ -11,17 +11,17 @@ const CartItem = (props) => {
   return (
     <div className="cart-item">
       <div className="left-block">
-        <img style={styles.image} />
+        <img style={styles.image} src={product.image} />
       </div>
       <div className="right-block">
         <div style={{ fontSize: 50 }}>{title}</div>
-        <div style={{ color: "#777" }}>{price}</div>
-        <div style={{ color: "#777" }}>{qty}</div>
+        <div style={{ color: "#777", fontSize: 25 }}>₹ {price}</div>
+        <div style={{ color: "#111", fontSize: 15 }}>Qty: {qty}</div>
         <div className="cart-item-actions">
           {/* buttons */}
 
           <img
-            src="https://www.flaticon.com/svg/vstatic/svg/1828/1828921.svg?token=exp=1618383646~hmac=e6db33f0565b1901bffdb07f0ce88022"
+            src="https://cdn.iconscout.com/icon/premium/png-256-thumb/plus-symbol-1577382-1339654.png"
             className="action-icons"
             alt="increase"
             onClick={() => onIncreaseQuantity(product)}
@@ -46,8 +46,8 @@ const CartItem = (props) => {
 
 const styles = {
   image: {
-    height: 110,
-    width: 110,
+    height: 150,
+    width: 150,
     borderRadius: 4,
     background: "#ccc",
   },
