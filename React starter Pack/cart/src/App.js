@@ -3,46 +3,40 @@ import React, { Component } from "react";
 import Cart from "./Cart";
 
 import Navbar from "./Navbar";
+import firebase from "firebase";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      products: [
-        {
-          price: 999,
-          title: "Phone",
-          qty: 1,
-          image:
-            "https://images.unsplash.com/photo-1567581935884-3349723552ca?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80",
-          id: 1,
-        },
-        {
-          price: 761,
-          title: "Watch",
-          qty: 1,
-          image:
-            "https://images.unsplash.com/photo-1512034705137-dc51c5ed36f4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=742&q=80",
-          id: 2,
-        },
-        {
-          price: 222,
-          title: "Book",
-          qty: 1,
-          image:
-            "https://images.unsplash.com/photo-1589998059171-988d887df646?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=755&q=80",
-          id: 3,
-        },
-        {
-          price: 111,
-          title: "Football",
-          qty: 1,
-          image:
-            "https://images.unsplash.com/photo-1511886929837-354d827aae26?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-          id: 4,
-        },
-      ],
+      products: [],
+      loading: true,
     };
+  }
+
+  componentDidMount() {
+    firebase
+      .firestore()
+      .collection("products")
+      .get()
+      .then((snapshot) => {
+        console.log(snapshot);
+
+        snapshot.docs.map((doc) => {
+          console.log(doc.data());
+        });
+
+        const products = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          data["id"] = doc.id;
+          return data;
+        });
+
+        this.setState({
+          products,
+          loading: false,
+        });
+      });
   }
 
   handleIncreaseQuantity = (product) => {
@@ -106,7 +100,7 @@ class App extends Component {
   };
 
   render() {
-    const { products } = this.state;
+    const { products, loading } = this.state;
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
@@ -116,6 +110,7 @@ class App extends Component {
           onDecreaseQuantity={this.handleDecreaseQuantity}
           onDeleteProduct={this.handleDeleteProduct}
         />
+        {loading && <h1>Loading Products...</h1>}
         <div style={{ paddingLeft: 40, paddingBottom: 20, fontSize: 20 }}>
           {" "}
           Total Price: {this.getCartTotal()}
