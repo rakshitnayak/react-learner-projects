@@ -12,6 +12,7 @@ class App extends Component {
       products: [],
       loading: true,
     };
+    this.db = firebase.firestore();
   }
 
   componentDidMount() {
@@ -38,27 +39,24 @@ class App extends Component {
     //     });
     //   });
 
-    firebase
-      .firestore()
-      .collection("products")
-      .onSnapshot((snapshot) => {
-        console.log(snapshot);
+    this.db.collection("products").onSnapshot((snapshot) => {
+      console.log(snapshot);
 
-        snapshot.docs.map((doc) => {
-          console.log(doc.data());
-        });
-
-        const products = snapshot.docs.map((doc) => {
-          const data = doc.data();
-          data["id"] = doc.id;
-          return data;
-        });
-
-        this.setState({
-          products,
-          loading: false,
-        });
+      snapshot.docs.map((doc) => {
+        console.log(doc.data());
       });
+
+      const products = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        data["id"] = doc.id;
+        return data;
+      });
+
+      this.setState({
+        products,
+        loading: false,
+      });
+    });
   }
 
   handleIncreaseQuantity = (product) => {
@@ -121,11 +119,31 @@ class App extends Component {
     return cartTotal;
   };
 
+  addProduct = () => {
+    this.db
+      .collection("products")
+      .add({
+        img: " ",
+        price: 900,
+        qty: 3,
+        title: "waching machine",
+      })
+      .then((docRef) => {
+        console.log("products has been added", docRef);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
   render() {
     const { products, loading } = this.state;
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
+        <button onClick={this.addProduct} style={{ padding: 20, fontSize: 20 }}>
+          Add a Product
+        </button>
         <Cart
           products={products}
           onIncreaseQuantity={this.handleIncreaseQuantity}
@@ -133,7 +151,13 @@ class App extends Component {
           onDeleteProduct={this.handleDeleteProduct}
         />
         {loading && <h1>Loading Products...</h1>}
-        <div style={{ paddingLeft: 40, paddingBottom: 20, fontSize: 20 }}>
+        <div
+          style={{
+            margin: 10,
+            padding: 10,
+            fontSize: 10,
+          }}
+        >
           {" "}
           Total Price: {this.getCartTotal()}
         </div>
