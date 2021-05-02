@@ -63,11 +63,22 @@ class App extends Component {
     const { products } = this.state;
     const index = products.indexOf(product);
 
-    products[index].qty += 1;
+    // products[index].qty += 1;
 
-    this.setState({
-      products,
-    });
+    // this.setState({
+    //   products,
+    // });
+    const docRef = this.db.collection("products").doc(products[index].id);
+    docRef
+      .update({
+        qty: products[index].qty + 1,
+      })
+      .then(() => {
+        console.log("document updated");
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
   handleDecreaseQuantity = (product) => {
@@ -141,9 +152,9 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
-        <button onClick={this.addProduct} style={{ padding: 20, fontSize: 20 }}>
-          Add a Product
-        </button>
+        {/*<button onClick={this.addProduct} style={{ padding: 20, fontSize: 20 }}> */}
+        {/* Add a Product*/}
+        {/*</button>*/}
         <Cart
           products={products}
           onIncreaseQuantity={this.handleIncreaseQuantity}
