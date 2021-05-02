@@ -39,24 +39,29 @@ class App extends Component {
     //     });
     //   });
 
-    this.db.collection("products").onSnapshot((snapshot) => {
-      console.log(snapshot);
+    this.db
+      .collection("products")
 
-      snapshot.docs.map((doc) => {
-        console.log(doc.data());
-      });
+      // .where("price", "<", 1000)
+      .orderBy("price", "desc") //refer documentation of firebase for more such queries.
+      .onSnapshot((snapshot) => {
+        console.log(snapshot);
 
-      const products = snapshot.docs.map((doc) => {
-        const data = doc.data();
-        data["id"] = doc.id;
-        return data;
-      });
+        snapshot.docs.map((doc) => {
+          console.log(doc.data());
+        });
 
-      this.setState({
-        products,
-        loading: false,
+        const products = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          data["id"] = doc.id;
+          return data;
+        });
+
+        this.setState({
+          products,
+          loading: false,
+        });
       });
-    });
   }
 
   handleIncreaseQuantity = (product) => {
@@ -189,7 +194,7 @@ class App extends Component {
           style={{
             margin: 10,
             padding: 10,
-            fontSize: 10,
+            fontSize: 25,
           }}
         >
           {" "}
